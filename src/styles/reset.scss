@@ -21,7 +21,7 @@ body {
 
 body {
 	line-height: 1.5;
-	font-family: 'Kumbh Sans', sans-serif;
+	font-family: "Kumbh Sans", sans-serif;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -70,13 +70,11 @@ $Dark_grayish_blue: hsl(219, 9%, 45%);
 $Grayish_blue: hsl(220, 14%, 75%);
 $Light_grayish_blue: hsl(223, 64%, 98%);
 $White: hsl(0, 0%, 100%);
-$Black_75:hsl(0, 0%, 0%);
+$Black_75: hsl(0, 0%, 0%);
 
-
-
-header{
-	height: 60px;
-	div{
-		height: 10px;
+header {
+	height: 300px;
+	div {
+		width: 100px;
 	}
 }
