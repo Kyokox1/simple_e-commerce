@@ -1,6 +1,6 @@
 import React from "react";
 import {
-	Button,
+	Box,
 	Drawer,
 	DrawerBody,
 	DrawerCloseButton,
@@ -28,19 +28,21 @@ export const HamburgerButton = () => {
 
 	return (
 		<>
-			<Button
-				_focus={{ outline: "none" }}
+			<Box
+				as="Button"
 				ref={btnRef}
 				variant="ghost"
 				onClick={onOpen}
+				p="15px"
 			>
 				<Image src={menu} w="20px" />
-			</Button>
+			</Box>
 			<Drawer
 				isOpen={isOpen}
 				placement="left"
 				onClose={onClose}
 				finalFocusRef={btnRef}
+				size="sm"
 			>
 				<DrawerOverlay />
 				<DrawerContent>
