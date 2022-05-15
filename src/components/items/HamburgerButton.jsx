@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import {
 	Box,
 	Drawer,
@@ -16,7 +16,7 @@ import menu from "../../../public/assets/images/icon-menu.svg";
 
 export const HamburgerButton = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const btnRef = React.useRef();
+	const btnRef = useRef();
 
 	const Link = styled.a`
 		padding-top: 10%;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Box,
 	Button,
@@ -8,7 +8,7 @@ import {
 	Image,
 	Link,
 	Tag,
-	Text,
+	Text
 } from "@chakra-ui/react";
 
 import cart from "../../public/assets/images/icon-cart.svg";
@@ -19,6 +19,32 @@ import { HamburgerButton } from "./items/HamburgerButton";
 import "../styles/reset.scss";
 
 const App = () => {
+	const [carousel, setCarousel] = useState(1);
+	const [count, setCount] = useState(0);
+
+	// ? Funcion para que funcione el carousel
+
+	const slideCarousel = (direction) => {
+		if (direction === "next") {
+			if (carousel < 4) return setCarousel(carousel + 1);
+			if (carousel === 4) return setCarousel(1);
+		}
+
+		if (direction === "back") {
+			if (carousel > 1) return setCarousel(carousel - 1);
+			if (carousel === 1) return setCarousel(4);
+		}
+	};
+
+	// ? Funcion para el contador de objetos en el carrito
+
+	const countCart = (addOrSustract) => {
+		if (addOrSustract === "add") return setCount(count + 1);
+
+		if (addOrSustract === "sustract" && count >= 1)
+			return setCount(count - 1);
+	};
+
 	return (
 		<Box
 			bgColor="secondary.LightGrayishBlue"
@@ -31,7 +57,6 @@ const App = () => {
 				h="10vh"
 				maxW={{ base: "100%", md: "90%", lg: "80%" }}
 				m="0 auto"
-				// bg="secondary.LightGrayishBlue"
 			>
 				<HStack w="inherit" h="inherit">
 					<HamburgerButton />
@@ -59,7 +84,7 @@ const App = () => {
 					{/* Carousel */}
 					<Box pos="relative" h="50vh" w="100%">
 						<Image
-							src={`../../public/assets/images/image-product-1.jpg`}
+							src={`../../public/assets/images/image-product-${carousel}.jpg`}
 							alt="Shoes"
 							h="100%"
 							w="100%"
@@ -67,6 +92,7 @@ const App = () => {
 						/>
 						<Box
 							as="button"
+							onClick={() => slideCarousel("next")}
 							pos="absolute"
 							boxSize="30px"
 							p="15px"
@@ -82,6 +108,7 @@ const App = () => {
 						></Box>
 						<Box
 							as="button"
+							onClick={() => slideCarousel("back")}
 							pos="absolute"
 							boxSize="30px"
 							p="15px"
@@ -120,6 +147,7 @@ const App = () => {
 							companion. Featuring a durable rubber outer sole, they ll
 							withstand everything the weather can offer.
 						</Text>
+						{/* Price Product */}
 						<HStack fontWeight="bold" justify="space-between">
 							<Text fontSize="3xl">
 								{" "}
@@ -135,7 +163,7 @@ const App = () => {
 									50%
 								</Tag>{" "}
 							</Text>
-							{/* <Spacer/> */}
+							
 							<Text
 								fontSize="xl"
 								alignSelf="flex-start"
@@ -146,6 +174,7 @@ const App = () => {
 							</Text>
 						</HStack>
 						<Flex direction="column" gap="15px">
+						{/* Buttons add and sustract Cart-count */}
 							<HStack
 								justify="space-between"
 								bgColor="gray.100"
@@ -153,6 +182,7 @@ const App = () => {
 							>
 								<Box
 									as="button"
+									onClick={() => countCart("sustract")}
 									h="40px"
 									w="50px"
 									bgImage="../../public/assets/images/icon-minus.svg"
@@ -160,10 +190,11 @@ const App = () => {
 									bgPos="center"
 								></Box>
 								<Text fontWeight="bold" fontSize="2xl">
-									0
+									{count}
 								</Text>
 								<Box
 									as="button"
+									onClick={() => countCart("add")}
 									h="40px"
 									w="50px"
 									bgImage="../../public/assets/images/icon-plus.svg"
@@ -171,6 +202,7 @@ const App = () => {
 									bgPos="center"
 								></Box>
 							</HStack>
+							{/* Button Add to Cart */}
 							<Button
 								py="20px"
 								fontSize="2xl"
@@ -190,7 +222,6 @@ const App = () => {
 							</Button>
 						</Flex>
 					</Flex>
-					{/* Add Cart */}
 				</Box>
 			</main>
 		</Box>
