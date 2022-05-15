@@ -45,6 +45,8 @@ const App = () => {
 			return setCount(count - 1);
 	};
 
+	console.log(typeof carousel.toString());
+
 	return (
 		<Box
 			bgColor="secondary.LightGrayishBlue"
@@ -84,7 +86,7 @@ const App = () => {
 					{/* Carousel */}
 					<Box pos="relative" h="50vh" w="100%">
 						<Image
-							src={`../../public/assets/images/image-product-${carousel}.jpg`}
+							src={`../../public/assets/images/image-product-${carousel.toString()}.jpg`}
 							alt="Shoes"
 							h="100%"
 							w="100%"
@@ -163,7 +165,7 @@ const App = () => {
 									50%
 								</Tag>{" "}
 							</Text>
-							
+
 							<Text
 								fontSize="xl"
 								alignSelf="flex-start"
@@ -174,7 +176,7 @@ const App = () => {
 							</Text>
 						</HStack>
 						<Flex direction="column" gap="15px">
-						{/* Buttons add and sustract Cart-count */}
+							{/* Buttons add and sustract Cart-count */}
 							<HStack
 								justify="space-between"
 								bgColor="gray.100"
