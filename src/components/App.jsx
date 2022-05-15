@@ -45,8 +45,6 @@ const App = () => {
 			return setCount(count - 1);
 	};
 
-	console.log(typeof carousel.toString());
-
 	return (
 		<Box
 			bgColor="secondary.LightGrayishBlue"
@@ -86,7 +84,7 @@ const App = () => {
 					{/* Carousel */}
 					<Box pos="relative" h="50vh" w="100%">
 						<Image
-							src={`../../public/assets/images/image-product-${carousel.toString()}.jpg`}
+							src={`./assets/images/image-product-${carousel.toString()}.jpg`}
 							alt="Shoes"
 							h="100%"
 							w="100%"
@@ -99,7 +97,7 @@ const App = () => {
 							boxSize="30px"
 							p="15px"
 							zIndex="10"
-							bgImage="../../public/assets/images/icon-next.svg"
+							bgImage="./assets/images/icon-next.svg"
 							bgColor="secondary.LightGrayishBlue"
 							bgPos="center"
 							borderRadius="50%"
@@ -115,7 +113,7 @@ const App = () => {
 							boxSize="30px"
 							p="15px"
 							zIndex="10"
-							bgImage="../../public/assets/images/icon-previous.svg"
+							bgImage="/assets/images/icon-previous.svg"
 							bgColor="secondary.LightGrayishBlue"
 							bgPos="center"
 							borderRadius="50%"
