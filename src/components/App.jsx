@@ -84,7 +84,7 @@ const App = () => {
 					{/* Carousel */}
 					<Box pos="relative" h="50vh" w="100%">
 						<Image
-							src={`./assets/images/image-product-${carousel.toString()}.jpg`}
+							src={`./assets/images/image-product-${carousel}.jpg`}
 							alt="Shoes"
 							h="100%"
 							w="100%"
@@ -185,7 +185,7 @@ const App = () => {
 									onClick={() => countCart("sustract")}
 									h="40px"
 									w="50px"
-									bgImage="../../public/assets/images/icon-minus.svg"
+									bgImage="./assets/images/icon-minus.svg"
 									bgRepeat="no-repeat"
 									bgPos="center"
 								></Box>
@@ -197,7 +197,7 @@ const App = () => {
 									onClick={() => countCart("add")}
 									h="40px"
 									w="50px"
-									bgImage="../../public/assets/images/icon-plus.svg"
+									bgImage="./assets/images/icon-plus.svg"
 									bgRepeat="no-repeat"
 									bgPos="center"
 								></Box>
