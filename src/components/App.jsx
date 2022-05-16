@@ -253,9 +253,10 @@ const App = () => {
 						</Flex>
 					</Flex>
 				</Box>
-			</main>
 
 			<ModalCart isOpen={isOpen} onClose={onClose} product={product}  setProduct={setProduct} initialProduct={initialProduct} />
+			</main>
+
 		</Box>
 	);
 };
