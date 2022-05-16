@@ -51,7 +51,7 @@ export const HamburgerButton = () => {
 						_focus={{ outline: "none" }}
 					/>
 					<DrawerBody pt="12vh" px="0" fontSize="2rem" fontWeight={"bold"}>
-						<VStack height="55vh">
+						<VStack as="nav" height="55vh">
 							<Link href="#">Collections</Link>
 							<Link href="#">Men</Link>
 							<Link href="#">Women</Link>

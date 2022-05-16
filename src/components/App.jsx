@@ -8,7 +8,8 @@ import {
 	Image,
 	Link,
 	Tag,
-	Text
+	Text,
+	useDisclosure
 } from "@chakra-ui/react";
 
 import cart from "../../public/assets/images/icon-cart.svg";
@@ -17,6 +18,7 @@ import avatar from "../../public/assets/images/image-avatar.png";
 import { HamburgerButton } from "./items/HamburgerButton";
 
 import "../styles/reset.scss";
+import { ModalCart } from "./sections/Modal";
 
 const App = () => {
 	const [carousel, setCarousel] = useState(1);
@@ -26,12 +28,14 @@ const App = () => {
 
 	const slideCarousel = (direction) => {
 		if (direction === "next") {
-			if (carousel < 4) return setCarousel(carousel + 1);
+			if (carousel < 4)
+				return setCarousel((prevCarousel) => prevCarousel + 1);
 			if (carousel === 4) return setCarousel(1);
 		}
 
 		if (direction === "back") {
-			if (carousel > 1) return setCarousel(carousel - 1);
+			if (carousel > 1)
+				return setCarousel((prevCarousel) => prevCarousel - 1);
 			if (carousel === 1) return setCarousel(4);
 		}
 	};
@@ -39,11 +43,34 @@ const App = () => {
 	// ? Funcion para el contador de objetos en el carrito
 
 	const countCart = (addOrSustract) => {
-		if (addOrSustract === "add") return setCount(count + 1);
+		if (addOrSustract === "add") setCount((prevCount) => prevCount + 1);
 
 		if (addOrSustract === "sustract" && count >= 1)
-			return setCount(count - 1);
+			setCount((prevCount) => prevCount - 1);
 	};
+
+	// ? Para activar el Modal
+	const { isOpen, onOpen, onClose } = useDisclosure()
+
+	// ? Contenido del Modal
+	const initialProduct={
+        name:"",
+        quantity:0,
+        price:0
+    }
+
+    const [product, setProduct] = useState(initialProduct);
+
+    const handleProduct=()=>{
+		setProduct(prevProduct=>({...prevProduct, name:`${seasonRandom} Limited Edition...`,quantity:count,price:125}))
+		// setProduct({...product, name:"Autumn Limited Edition...",quantity:count,price:125,total:product.price*product.quantity})
+		onOpen()
+    }
+
+	// ?Estaciones Random
+
+	const seasons=["Autumn","Spring","Summer","Winter"]
+	const seasonRandom = seasons[Math.floor(Math.random()*seasons.length)]
 
 	return (
 		<Box
@@ -65,6 +92,7 @@ const App = () => {
 					</Box>
 					<Flex flex={2} h="100%" align="center" justify="space-evenly">
 						<Image
+							onClick={onOpen}
 							src={cart}
 							alt="cart"
 							h="40%"
@@ -89,6 +117,7 @@ const App = () => {
 							h="100%"
 							w="100%"
 							objectFit="cover"
+							cursor="pointer"
 						/>
 						<Box
 							as="button"
@@ -204,6 +233,7 @@ const App = () => {
 							</HStack>
 							{/* Button Add to Cart */}
 							<Button
+								onClick={handleProduct}
 								py="20px"
 								fontSize="2xl"
 								leftIcon={
@@ -224,6 +254,8 @@ const App = () => {
 					</Flex>
 				</Box>
 			</main>
+
+			<ModalCart isOpen={isOpen} onClose={onClose} product={product}  setProduct={setProduct} initialProduct={initialProduct} />
 		</Box>
 	);
 };
