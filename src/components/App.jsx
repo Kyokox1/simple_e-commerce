@@ -43,34 +43,41 @@ const App = () => {
 	// ? Funcion para el contador de objetos en el carrito
 
 	const countCart = (addOrSustract) => {
-		if (addOrSustract === "add") setCount((prevCount) => prevCount + 1);
+		if (addOrSustract === "add" && count < 100)
+			setCount((prevCount) => prevCount + 1);
 
 		if (addOrSustract === "sustract" && count >= 1)
 			setCount((prevCount) => prevCount - 1);
 	};
 
 	// ? Para activar el Modal
-	const { isOpen, onOpen, onClose } = useDisclosure()
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	// ? Contenido del Modal
-	const initialProduct={
-        name:"",
-        quantity:0,
-        price:0
-    }
+	const initialProduct = {
+		name: "",
+		quantity: 0,
+		price: 0
+	};
 
-    const [product, setProduct] = useState(initialProduct);
+	const [product, setProduct] = useState(initialProduct);
 
-    const handleProduct=()=>{
-		setProduct(prevProduct=>({...prevProduct, name:`${seasonRandom} Limited Edition...`,quantity:count,price:125}))
+	const handleProduct = () => {
+		setProduct((prevProduct) => ({
+			...prevProduct,
+			name: `${seasonRandom} Limited Edition...`,
+			quantity: count,
+			price: 125
+		}));
 		// setProduct({...product, name:"Autumn Limited Edition...",quantity:count,price:125,total:product.price*product.quantity})
-		onOpen()
-    }
+		onOpen();
+		setCount(0);
+	};
 
 	// ?Estaciones Random
 
-	const seasons=["Autumn","Spring","Summer","Winter"]
-	const seasonRandom = seasons[Math.floor(Math.random()*seasons.length)]
+	const seasons = ["Autumn", "Spring", "Summer", "Winter"];
+	const seasonRandom = seasons[Math.floor(Math.random() * seasons.length)];
 
 	return (
 		<Box
@@ -91,14 +98,34 @@ const App = () => {
 						<Link href="#">sneakers</Link>
 					</Box>
 					<Flex flex={2} h="100%" align="center" justify="space-evenly">
-						<Image
-							onClick={onOpen}
-							src={cart}
-							alt="cart"
-							h="40%"
-							cursor="pointer"
-							_hover={{ filter: "contrast(500%)" }}
-						/>
+						<Box pos="relative">
+							<Text
+								as="span"
+								display={product.quantity > 0 ? "block" : "none"}
+								pos="absolute"
+								top="-6px"
+								left="10px"
+								px="7px"
+								py="0"
+								fontSize="lg"
+								textAlign="center"
+								color="white"
+								bgColor="primary.orange"
+								borderRadius="30px"
+								zIndex="100"
+							>
+								{product.quantity}
+							</Text>
+							<Image
+								onClick={onOpen}
+								src={cart}
+								alt="cart"
+								h="40%"
+								cursor="pointer"
+								filter={product.quantity > 0 && "contrast(600%)"}
+								_hover={{ filter: "contrast(500%)" }}
+							/>
+						</Box>
 						<Link h="50%">
 							<Image src={avatar} alt="profile" h="100%" />
 						</Link>
@@ -254,9 +281,14 @@ const App = () => {
 					</Flex>
 				</Box>
 
-			<ModalCart isOpen={isOpen} onClose={onClose} product={product}  setProduct={setProduct} initialProduct={initialProduct} />
+				<ModalCart
+					isOpen={isOpen}
+					onClose={onClose}
+					product={product}
+					setProduct={setProduct}
+					initialProduct={initialProduct}
+				/>
 			</main>
-
 		</Box>
 	);
 };
