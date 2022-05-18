@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import {
 	Box,
 	Drawer,
@@ -31,8 +31,9 @@ export const HamburgerButton = () => {
 			<Box
 				as="Button"
 				ref={btnRef}
-				variant="ghost"
 				onClick={onOpen}
+				display={{ base: "block", lg: "none" }}
+				variant="ghost"
 				p="15px"
 			>
 				<Image src={menu} w="20px" />

@@ -6,19 +6,18 @@ import {
 	Heading,
 	HStack,
 	Image,
-	Link,
+	Stack,
 	Tag,
 	Text,
 	useDisclosure
 } from "@chakra-ui/react";
 
 import cart from "../../public/assets/images/icon-cart.svg";
-import avatar from "../../public/assets/images/image-avatar.png";
 
-import { HamburgerButton } from "./items/HamburgerButton";
+import { ModalCart } from "./sections/Modal";
 
 import "../styles/reset.scss";
-import { ModalCart } from "./sections/Modal";
+import { Header } from "./sections/Header";
 
 const App = () => {
 	const [carousel, setCarousel] = useState(1);
@@ -83,72 +82,35 @@ const App = () => {
 		<Box
 			bgColor="secondary.LightGrayishBlue"
 			fontFamily="Kumbh Sans, sans-serif"
+			h={{ base: "auto", lg: "100vh" }}
 		>
 			{/* Header */}
-			<Heading
-				as="header"
-				w="100%"
-				h="10vh"
-				maxW={{ base: "100%", md: "90%", lg: "80%" }}
-				m="0 auto"
-			>
-				<HStack w="inherit" h="inherit">
-					<HamburgerButton />
-					<Box fontWeight="bold" fontSize="4xl" flex={3}>
-						<Link href="#">sneakers</Link>
-					</Box>
-					<Flex flex={2} h="100%" align="center" justify="space-evenly">
-						<Box pos="relative">
-							<Text
-								as="span"
-								display={product.quantity > 0 ? "block" : "none"}
-								pos="absolute"
-								top="-6px"
-								left="10px"
-								px="7px"
-								py="0"
-								fontSize="lg"
-								textAlign="center"
-								color="white"
-								bgColor="primary.orange"
-								borderRadius="30px"
-								zIndex="100"
-							>
-								{product.quantity}
-							</Text>
-							<Image
-								onClick={onOpen}
-								src={cart}
-								alt="cart"
-								h="40%"
-								cursor="pointer"
-								filter={product.quantity > 0 && "contrast(600%)"}
-								_hover={{ filter: "contrast(500%)" }}
-							/>
-						</Box>
-						<Link h="50%">
-							<Image src={avatar} alt="profile" h="100%" />
-						</Link>
-					</Flex>
-				</HStack>
-			</Heading>
+
+			<Header cart={cart} product={product} onOpen={onOpen} />
 
 			{/* Main */}
 			<main>
-				<Box>
+				<Stack
+					direction={{ base: "column", lg: "row" }}
+					maxW={{ lg: "80%" }}
+					m="0 auto"
+					pt={{ lg: "40px" }}
+				>
 					{/* Carousel */}
-					<Box pos="relative" h="50vh" w="100%">
+					<Box pos="relative" h={{ base: "50vh", lg: "60vh" }} w="100%">
 						<Image
 							src={`./assets/images/image-product-${carousel}.jpg`}
 							alt="Shoes"
 							h="100%"
 							w="100%"
+							borderRadius={{ lg: "2xl" }}
 							objectFit="cover"
 							cursor="pointer"
 						/>
 						<Box
 							as="button"
 							onClick={() => slideCarousel("next")}
+							display={{ lg: "none" }}
 							pos="absolute"
 							boxSize="30px"
 							p="15px"
@@ -165,6 +127,7 @@ const App = () => {
 						<Box
 							as="button"
 							onClick={() => slideCarousel("back")}
+							display={{ lg: "none" }}
 							pos="absolute"
 							boxSize="30px"
 							p="15px"
@@ -178,7 +141,38 @@ const App = () => {
 							top="calc(50% - 22px)"
 							left="5%"
 						></Box>
+						{/* Tumbnail Desktop */}
+						<Stack
+							display={{ base: "none", lg: "flex" }}
+							direction="row"
+							spacing={8}
+							pt="20px"
+						>
+							{Array.from("1234").map((num, i) => (
+								<Box
+									key={i}
+									flex={1}
+									borderRadius="2xl"
+									overflow="hidden"
+									border={
+										carousel == num
+											? "2px hsl(26, 100%, 55%) solid"
+											: "2px transparent solid"
+									}
+								>
+									<Image
+										onClick={() => setCarousel(num)}
+										src={`/public/assets/images/image-product-${num}-thumbnail.jpg`}
+										alt="Tumbnails"
+										h="100%"
+										w="100%"
+										filter={carousel == num && "opacity(50%)"}
+									/>
+								</Box>
+							))}
+						</Stack>
 					</Box>
+
 					{/* Description */}
 					<Flex direction="column" p="15px" pb="70px" gap="25px">
 						<Text
@@ -229,10 +223,12 @@ const App = () => {
 								$250.00
 							</Text>
 						</HStack>
-						<Flex direction="column" gap="15px">
+						<Flex direction="column" gap="15px" align="center">
 							{/* Buttons add and sustract Cart-count */}
 							<HStack
 								justify="space-between"
+								w="100%"
+								maxW="500px"
 								bgColor="gray.100"
 								borderRadius="5px"
 							>
@@ -262,6 +258,8 @@ const App = () => {
 							<Button
 								onClick={handleProduct}
 								py="20px"
+								w="100%"
+								maxW="500px"
 								fontSize="2xl"
 								leftIcon={
 									<Image
@@ -279,7 +277,7 @@ const App = () => {
 							</Button>
 						</Flex>
 					</Flex>
-				</Box>
+				</Stack>
 
 				<ModalCart
 					isOpen={isOpen}
