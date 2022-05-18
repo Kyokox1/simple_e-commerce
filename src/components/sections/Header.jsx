@@ -20,7 +20,7 @@ export const Header = ({ product, cart, onOpen }) => {
 			as="header"
 			w="100%"
 			h="10vh"
-			maxW={{ base: "100%", md: "90%", lg: "80%" }}
+			maxW={{ base: "100%", md: "90%", lg: "80%", xl: "75%" }}
 			m="0 auto"
 			borderBottom={{ lg: "1px hsl(220, 14%, 90%)  solid" }}
 		>
@@ -31,20 +31,42 @@ export const Header = ({ product, cart, onOpen }) => {
 				</Box>
 				{/* Nav Desktop */}
 				<Stack
-					display={{ base: "none", lg: "block" }}
+					h="100%"
+					w="40%"
+					display={{ base: "none", lg: "flex" }}
 					direction="row"
 					flex={4}
 					spacing={10}
 					pl="15px"
+					pr="20%"
 					fontSize="xl"
 					color="secondary.DarkGrayishBlue"
 					fontWeight={500}
 				>
-					<Link href="#">Collections</Link>
-					<Link href="#">Men</Link>
-					<Link href="#">Women</Link>
-					<Link href="#">About</Link>
-					<Link href="#">Contact</Link>
+					{["Collections", "Men", "Women", "About", "Contact"].map(
+						(el, i) => (
+							<Link
+								flex="1"
+								key={i}
+								href="#"
+								h="100%"
+								display="flex"
+								alignItems="center"
+								justifyContent="center"
+								borderBottom="2px transparent solid"
+								_hover={{
+									color: "black",
+									borderBottom: "2px orange solid"
+								}}
+								_focus={{
+									color: "black",
+									borderBottom: "2px orange solid"
+								}}
+							>
+								{el}
+							</Link>
+						)
+					)}
 				</Stack>
 
 				<Flex flex={2} h="100%" align="center" justify="space-evenly">

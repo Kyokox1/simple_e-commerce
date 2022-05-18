@@ -14,28 +14,29 @@ import {
 
 import cart from "../../public/assets/images/icon-cart.svg";
 
-import { ModalCart } from "./sections/Modal";
+import { Modals } from "./sections/ModalCartAndProduct";
 
 import "../styles/reset.scss";
 import { Header } from "./sections/Header";
+// import { ModalProduct } from "./sections/ModalProduct";
 
 const App = () => {
 	const [carousel, setCarousel] = useState(1);
 	const [count, setCount] = useState(0);
 
-	// ? Funcion para que funcione el carousel
+	// ? Funcion para que funcione el carousel Principal
 
 	const slideCarousel = (direction) => {
 		if (direction === "next") {
 			if (carousel < 4)
 				return setCarousel((prevCarousel) => prevCarousel + 1);
-			if (carousel === 4) return setCarousel(1);
+			else return setCarousel(1);
 		}
 
 		if (direction === "back") {
 			if (carousel > 1)
 				return setCarousel((prevCarousel) => prevCarousel - 1);
-			if (carousel === 1) return setCarousel(4);
+			else return setCarousel(4);
 		}
 	};
 
@@ -78,6 +79,16 @@ const App = () => {
 	const seasons = ["Autumn", "Spring", "Summer", "Winter"];
 	const seasonRandom = seasons[Math.floor(Math.random() * seasons.length)];
 
+	// ?Modal Product
+	const [showModalProduct, setShowModalProduct] = useState(false);
+
+	const openModalProduct = () => {
+		if (window.innerWidth >= 960) {
+			setShowModalProduct(true);
+			onOpen();
+		}
+	};
+
 	return (
 		<Box
 			bgColor="secondary.LightGrayishBlue"
@@ -92,7 +103,7 @@ const App = () => {
 			<main>
 				<Stack
 					direction={{ base: "column", lg: "row" }}
-					maxW={{ lg: "80%" }}
+					maxW={{ lg: "80%", xl: "70%" }}
 					m="0 auto"
 					pt={{ lg: "40px" }}
 				>
@@ -101,6 +112,7 @@ const App = () => {
 						<Image
 							src={`./assets/images/image-product-${carousel}.jpg`}
 							alt="Shoes"
+							onClick={openModalProduct}
 							h="100%"
 							w="100%"
 							borderRadius={{ lg: "2xl" }}
@@ -148,25 +160,29 @@ const App = () => {
 							spacing={8}
 							pt="20px"
 						>
-							{Array.from("1234").map((num, i) => (
+							{[1, 2, 3, 4].map((num, i) => (
 								<Box
 									key={i}
 									flex={1}
 									borderRadius="2xl"
 									overflow="hidden"
 									border={
-										carousel == num
+										carousel === num
 											? "2px hsl(26, 100%, 55%) solid"
 											: "2px transparent solid"
 									}
 								>
 									<Image
 										onClick={() => setCarousel(num)}
-										src={`/public/assets/images/image-product-${num}-thumbnail.jpg`}
+										src={`./assets/images/image-product-${num}-thumbnail.jpg`}
 										alt="Tumbnails"
 										h="100%"
 										w="100%"
-										filter={carousel == num && "opacity(50%)"}
+										filter={carousel === num && "opacity(50%)"}
+										cursor="pointer"
+										_hover={
+											carousel !== num && { filter: "grayScale(60%)" }
+										}
 									/>
 								</Box>
 							))}
@@ -279,12 +295,14 @@ const App = () => {
 					</Flex>
 				</Stack>
 
-				<ModalCart
+				<Modals
 					isOpen={isOpen}
 					onClose={onClose}
 					product={product}
 					setProduct={setProduct}
 					initialProduct={initialProduct}
+					showModalProduct={showModalProduct}
+					setShowModalProduct={setShowModalProduct}
 				/>
 			</main>
 		</Box>

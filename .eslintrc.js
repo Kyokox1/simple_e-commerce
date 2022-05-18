@@ -21,6 +21,6 @@ module.exports = {
   ],
   rules: {
     "react/prop-types": "off",
-    "eslint eqeqeq": "0"
+    // "eslint eqeqeq": "0"
   }
 }
