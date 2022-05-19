@@ -99,7 +99,13 @@ export const Header = ({ product, cart, onOpen }) => {
 						/>
 					</Box>
 					<Link h="50%">
-						<Image src={avatar} alt="profile" h="100%" />
+						<Image
+							src={avatar}
+							alt="profile"
+							h="100%"
+							borderRadius="50%"
+							_hover={{ outline: "2px orange solid" }}
+						/>
 					</Link>
 				</Flex>
 			</HStack>
