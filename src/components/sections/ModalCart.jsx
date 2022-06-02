@@ -16,9 +16,9 @@ import {
 } from "@chakra-ui/react";
 
 export const ModalCart = ({ isOpen, onClose, product, handleDelete }) => {
-	// ? Funcion Checkout
 	const toast = useToast();
 
+	// ? Funcion Checkout
 	const handleCheckout = () => {
 		onClose();
 		handleDelete();

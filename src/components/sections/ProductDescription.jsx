@@ -14,16 +14,15 @@ export const ProductDescription = ({
 	cart,
 	countCart,
 	count,
-    setProduct,
-    onOpen,
-    setCount
+	setProduct,
+	onOpen,
+	setCount
 }) => {
-
-    const handleProduct = () => {
+	const handleProduct = () => {
 		setProduct((prevProduct) => ({
 			...prevProduct,
 			name: `${seasonRandom} Limited Edition...`,
-			quantity: count,
+			quantity: count + prevProduct.quantity,
 			price: 125
 		}));
 		// setProduct({...product, name:"Autumn Limited Edition...",quantity:count,price:125,total:product.price*product.quantity})
@@ -31,10 +30,11 @@ export const ProductDescription = ({
 		setCount(0);
 	};
 
-    // ?Estaciones Random
+	// ?Estaciones Random
 
 	const seasons = ["Autumn", "Spring", "Summer", "Winter"];
-	const seasonRandom = seasons[Math.floor(Math.random() * seasons.length)];
+	const seasonRandom =
+		seasons[Math.floor(Math.random() * seasons.length)];
 
 	return (
 		<Flex direction="column" p="15px" pb="70px" gap="25px">
@@ -56,9 +56,9 @@ export const ProductDescription = ({
 				fontWeight="semibold"
 				color="secondary.DarkGrayishBlue"
 			>
-				These low-profile sneakers are your perfect casual wear companion.
-				Featuring a durable rubber outer sole, they ll withstand everything
-				the weather can offer.
+				These low-profile sneakers are your perfect casual wear
+				companion. Featuring a durable rubber outer sole, they ll
+				withstand everything the weather can offer.
 			</Text>
 			{/* Price Product */}
 			<HStack fontWeight="bold" justify="space-between">
