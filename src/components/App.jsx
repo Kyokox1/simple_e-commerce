@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Stack, useDisclosure } from "@chakra-ui/react";
 
 import cart from "../../public/assets/images/icon-cart.svg";
@@ -43,14 +43,20 @@ const App = () => {
 	// ? Para activar el Modal
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	// ? Contenido del Modal
+	// ? Contenido del Modal con almacenamiento en el LocalStorage
 	const initialProduct = {
 		name: "",
 		quantity: 0,
 		price: 0
 	};
 
-	const [product, setProduct] = useState(initialProduct);
+	const [product, setProduct] = useState(
+		() => JSON.parse(localStorage.getItem("product")) || initialProduct
+	);
+
+	useEffect(() => {
+		localStorage.setItem("product", JSON.stringify(product));
+	}, [product]);
 
 	// ?Modal Product
 	const [showModalProduct, setShowModalProduct] = useState(false);

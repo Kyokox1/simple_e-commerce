@@ -25,8 +25,14 @@ export const Header = ({ product, cart, onOpen }) => {
 			borderBottom={{ lg: "1px hsl(220, 14%, 90%)  solid" }}
 		>
 			<HStack w="inherit" h="inherit">
+				{/* Hamburger button */}
 				<HamburgerButton />
-				<Box fontWeight="bold" fontSize="4xl" flex={{ base: 3, lg: 1 }}>
+
+				<Box
+					fontWeight="bold"
+					fontSize="4xl"
+					flex={{ base: 3, lg: 1 }}
+				>
 					<Link href="#">sneakers</Link>
 				</Box>
 				{/* Nav Desktop */}
@@ -43,37 +49,48 @@ export const Header = ({ product, cart, onOpen }) => {
 					color="secondary.DarkGrayishBlue"
 					fontWeight={500}
 				>
-					{["Collections", "Men", "Women", "About", "Contact"].map(
-						(el, i) => (
-							<Link
-								flex="1"
-								key={i}
-								href="#"
-								h="100%"
-								display="flex"
-								alignItems="center"
-								justifyContent="center"
-								borderBottom="2px transparent solid"
-								_hover={{
-									color: "black",
-									borderBottom: "2px orange solid"
-								}}
-								_focus={{
-									color: "black",
-									borderBottom: "2px orange solid"
-								}}
-							>
-								{el}
-							</Link>
-						)
-					)}
+					{[
+						"Collections",
+						"Men",
+						"Women",
+						"About",
+						"Contact"
+					].map((el, i) => (
+						<Link
+							flex="1"
+							key={i}
+							href="#"
+							h="100%"
+							display="flex"
+							alignItems="center"
+							justifyContent="center"
+							borderBottom="2px transparent solid"
+							_hover={{
+								color: "black",
+								borderBottom: "2px orange solid"
+							}}
+							_focus={{
+								color: "black",
+								borderBottom: "2px orange solid"
+							}}
+						>
+							{el}
+						</Link>
+					))}
 				</Stack>
 
-				<Flex flex={2} h="100%" align="center" justify="space-evenly">
+				<Flex
+					flex={2}
+					h="100%"
+					align="center"
+					justify="space-evenly"
+				>
 					<Box pos="relative">
 						<Text
 							as="span"
-							display={product.quantity > 0 ? "block" : "none"}
+							display={
+								product.quantity > 0 ? "block" : "none"
+							}
 							pos="absolute"
 							top="-6px"
 							left="10px"
@@ -94,7 +111,9 @@ export const Header = ({ product, cart, onOpen }) => {
 							alt="cart"
 							h="40%"
 							cursor="pointer"
-							filter={product.quantity > 0 && "contrast(600%)"}
+							filter={
+								product.quantity > 0 && "contrast(600%)"
+							}
 							_hover={{ filter: "contrast(500%)" }}
 						/>
 					</Box>

@@ -11,10 +11,42 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
-	Text
+	Text,
+	useToast
 } from "@chakra-ui/react";
 
 export const ModalCart = ({ isOpen, onClose, product, handleDelete }) => {
+	// ? Funcion Checkout
+	const toast = useToast();
+
+	const handleCheckout = () => {
+		onClose();
+		handleDelete();
+		if (window.innerWidth >= 960) {
+			toast({
+				title: "your request has been made.",
+				status: "success",
+				position: "bottom-right",
+				duration: 3000,
+				containerStyle: {
+					fontSize: "2xl"
+				},
+				isClosable: true
+			});
+		} else {
+			toast({
+				title: "your request has been made.",
+				status: "success",
+				position: "top",
+				duration: 3000,
+				containerStyle: {
+					fontSize: "xl"
+				},
+				isClosable: true
+			});
+		}
+	};
+
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay display={{ base: "block", lg: "none" }} />
@@ -52,7 +84,12 @@ export const ModalCart = ({ isOpen, onClose, product, handleDelete }) => {
 					<>
 						<ModalBody color="secondary.DarkGrayishBlue">
 							<HStack>
-								<Box flex="1" h="50px" borderRadius="lg" overflow="hidden">
+								<Box
+									flex="1"
+									h="50px"
+									borderRadius="lg"
+									overflow="hidden"
+								>
 									<Image
 										src="./assets/images/image-product-1-thumbnail.jpg"
 										alt="ShoesCart"
@@ -62,9 +99,16 @@ export const ModalCart = ({ isOpen, onClose, product, handleDelete }) => {
 								<Box flex="3" fontSize="xl">
 									<Text as="h3">{product.name}</Text>
 									<Text>
-										{`$${product.price.toFixed(2)} x ${product.quantity}`}{" "}
-										<Text as="span" fontWeight="bold" color="black">{`$${(
-											product.quantity * product.price
+										{`$${product.price.toFixed(2)} x ${
+											product.quantity
+										}`}{" "}
+										<Text
+											as="span"
+											fontWeight="bold"
+											color="black"
+										>{`$${(
+											product.quantity *
+											product.price
 										).toFixed(2)}`}</Text>
 									</Text>
 								</Box>
@@ -88,7 +132,7 @@ export const ModalCart = ({ isOpen, onClose, product, handleDelete }) => {
 								py="20px"
 								w="95%"
 								fontSize="2xl"
-								onClick={onClose}
+								onClick={handleCheckout}
 							>
 								Checkout
 							</Button>
